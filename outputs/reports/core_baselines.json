@@ -1,0 +1,830 @@
+[
+ {
+  "model": "qwen3_32b",
+  "split": "dev",
+  "subset": "all pairs",
+  "baseline": "vote_minority",
+  "n_pairs": 5,
+  "auroc": 0.9,
+  "auroc_ci": [
+   0.7,
+   1.0
+  ],
+  "pair_win_rate": 0.9,
+  "tpr_at_0fp": 0.8,
+  "tpr_at_10fpr": 0.8
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "dev",
+  "subset": "all pairs",
+  "baseline": "echo_max",
+  "n_pairs": 5,
+  "auroc": 0.48,
+  "auroc_ci": [
+   0.2,
+   0.8
+  ],
+  "pair_win_rate": 0.4,
+  "tpr_at_0fp": 0.0,
+  "tpr_at_10fpr": 0.0
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "dev",
+  "subset": "all pairs",
+  "baseline": "echo_standout",
+  "n_pairs": 5,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "dev",
+  "subset": "all pairs",
+  "baseline": "vote_nonfair (oracle)",
+  "n_pairs": 5,
+  "auroc": 0.9,
+  "auroc_ci": [
+   0.7,
+   1.0
+  ],
+  "pair_win_rate": 0.9,
+  "tpr_at_0fp": 0.8,
+  "tpr_at_10fpr": 0.8
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "dev",
+  "subset": "all pairs",
+  "baseline": "echo_pair = coalition (agent level)",
+  "n_pairs": 5,
+  "accuracy": 0.4,
+  "chance": 0.16666666666666666
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "dev",
+  "subset": "no refusals",
+  "baseline": "vote_minority",
+  "n_pairs": 4,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "dev",
+  "subset": "no refusals",
+  "baseline": "echo_max",
+  "n_pairs": 4,
+  "auroc": 0.375,
+  "auroc_ci": [
+   0.0625,
+   0.75
+  ],
+  "pair_win_rate": 0.25,
+  "tpr_at_0fp": 0.0,
+  "tpr_at_10fpr": 0.0
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "dev",
+  "subset": "no refusals",
+  "baseline": "echo_standout",
+  "n_pairs": 4,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "dev",
+  "subset": "no refusals",
+  "baseline": "vote_nonfair (oracle)",
+  "n_pairs": 4,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "dev",
+  "subset": "no refusals",
+  "baseline": "echo_pair = coalition (agent level)",
+  "n_pairs": 4,
+  "accuracy": 0.5,
+  "chance": 0.16666666666666666
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "test",
+  "subset": "all pairs",
+  "baseline": "vote_minority",
+  "n_pairs": 26,
+  "auroc": 0.8653846153846154,
+  "auroc_ci": [
+   0.7884615384615384,
+   0.9423076923076923
+  ],
+  "pair_win_rate": 0.8653846153846154,
+  "tpr_at_0fp": 0.7307692307692307,
+  "tpr_at_10fpr": 0.7307692307692307
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "test",
+  "subset": "all pairs",
+  "baseline": "echo_max",
+  "n_pairs": 26,
+  "auroc": 0.27071005917159763,
+  "auroc_ci": [
+   0.15380917159763316,
+   0.39204881656804713
+  ],
+  "pair_win_rate": 0.23076923076923078,
+  "tpr_at_0fp": 0.038461538461538464,
+  "tpr_at_10fpr": 0.038461538461538464
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "test",
+  "subset": "all pairs",
+  "baseline": "echo_standout",
+  "n_pairs": 26,
+  "auroc": 0.8165680473372781,
+  "auroc_ci": [
+   0.678957100591716,
+   0.9260355029585798
+  ],
+  "pair_win_rate": 0.7692307692307693,
+  "tpr_at_0fp": 0.4230769230769231,
+  "tpr_at_10fpr": 0.5
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "test",
+  "subset": "all pairs",
+  "baseline": "vote_nonfair (oracle)",
+  "n_pairs": 26,
+  "auroc": 0.9038461538461539,
+  "auroc_ci": [
+   0.8269230769230769,
+   0.9807692307692307
+  ],
+  "pair_win_rate": 0.9038461538461539,
+  "tpr_at_0fp": 0.8076923076923077,
+  "tpr_at_10fpr": 0.8076923076923077
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "test",
+  "subset": "all pairs",
+  "baseline": "echo_pair = coalition (agent level)",
+  "n_pairs": 26,
+  "accuracy": 0.46153846153846156,
+  "chance": 0.16666666666666666
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "test",
+  "subset": "no refusals",
+  "baseline": "vote_minority",
+  "n_pairs": 21,
+  "auroc": 0.9523809523809523,
+  "auroc_ci": [
+   0.8809523809523809,
+   1.0
+  ],
+  "pair_win_rate": 0.9523809523809523,
+  "tpr_at_0fp": 0.9047619047619048,
+  "tpr_at_10fpr": 0.9047619047619048
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "test",
+  "subset": "no refusals",
+  "baseline": "echo_max",
+  "n_pairs": 21,
+  "auroc": 0.2766439909297052,
+  "auroc_ci": [
+   0.14512471655328799,
+   0.41723356009070295
+  ],
+  "pair_win_rate": 0.23809523809523808,
+  "tpr_at_0fp": 0.0,
+  "tpr_at_10fpr": 0.0
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "test",
+  "subset": "no refusals",
+  "baseline": "echo_standout",
+  "n_pairs": 21,
+  "auroc": 0.8639455782312925,
+  "auroc_ci": [
+   0.7278911564625851,
+   0.9682539682539683
+  ],
+  "pair_win_rate": 0.8571428571428571,
+  "tpr_at_0fp": 0.47619047619047616,
+  "tpr_at_10fpr": 0.5714285714285714
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "test",
+  "subset": "no refusals",
+  "baseline": "vote_nonfair (oracle)",
+  "n_pairs": 21,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "test",
+  "subset": "no refusals",
+  "baseline": "echo_pair = coalition (agent level)",
+  "n_pairs": 21,
+  "accuracy": 0.42857142857142855,
+  "chance": 0.16666666666666666
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "all",
+  "subset": "all pairs",
+  "baseline": "vote_minority",
+  "n_pairs": 31,
+  "auroc": 0.8709677419354839,
+  "auroc_ci": [
+   0.7903225806451613,
+   0.9516129032258065
+  ],
+  "pair_win_rate": 0.8709677419354839,
+  "tpr_at_0fp": 0.7419354838709677,
+  "tpr_at_10fpr": 0.7419354838709677
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "all",
+  "subset": "all pairs",
+  "baseline": "echo_max",
+  "n_pairs": 31,
+  "auroc": 0.29968782518210196,
+  "auroc_ci": [
+   0.19763267429760667,
+   0.4068678459937565
+  ],
+  "pair_win_rate": 0.25806451612903225,
+  "tpr_at_0fp": 0.03225806451612903,
+  "tpr_at_10fpr": 0.03225806451612903
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "all",
+  "subset": "all pairs",
+  "baseline": "echo_standout",
+  "n_pairs": 31,
+  "auroc": 0.8491155046826223,
+  "auroc_ci": [
+   0.7388137356919875,
+   0.9354838709677419
+  ],
+  "pair_win_rate": 0.8064516129032258,
+  "tpr_at_0fp": 0.41935483870967744,
+  "tpr_at_10fpr": 0.6129032258064516
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "all",
+  "subset": "all pairs",
+  "baseline": "vote_nonfair (oracle)",
+  "n_pairs": 31,
+  "auroc": 0.9032258064516129,
+  "auroc_ci": [
+   0.8225806451612904,
+   0.967741935483871
+  ],
+  "pair_win_rate": 0.9032258064516129,
+  "tpr_at_0fp": 0.8064516129032258,
+  "tpr_at_10fpr": 0.8064516129032258
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "all",
+  "subset": "all pairs",
+  "baseline": "echo_pair = coalition (agent level)",
+  "n_pairs": 31,
+  "accuracy": 0.45161290322580644,
+  "chance": 0.16666666666666666
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "all",
+  "subset": "no refusals",
+  "baseline": "vote_minority",
+  "n_pairs": 25,
+  "auroc": 0.96,
+  "auroc_ci": [
+   0.9,
+   1.0
+  ],
+  "pair_win_rate": 0.96,
+  "tpr_at_0fp": 0.92,
+  "tpr_at_10fpr": 0.92
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "all",
+  "subset": "no refusals",
+  "baseline": "echo_max",
+  "n_pairs": 25,
+  "auroc": 0.2912,
+  "auroc_ci": [
+   0.1776,
+   0.4096399999999998
+  ],
+  "pair_win_rate": 0.24,
+  "tpr_at_0fp": 0.0,
+  "tpr_at_10fpr": 0.0
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "all",
+  "subset": "no refusals",
+  "baseline": "echo_standout",
+  "n_pairs": 25,
+  "auroc": 0.8864,
+  "auroc_ci": [
+   0.7632,
+   0.9728
+  ],
+  "pair_win_rate": 0.88,
+  "tpr_at_0fp": 0.48,
+  "tpr_at_10fpr": 0.56
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "all",
+  "subset": "no refusals",
+  "baseline": "vote_nonfair (oracle)",
+  "n_pairs": 25,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "qwen3_32b",
+  "split": "all",
+  "subset": "no refusals",
+  "baseline": "echo_pair = coalition (agent level)",
+  "n_pairs": 25,
+  "accuracy": 0.44,
+  "chance": 0.16666666666666666
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "dev",
+  "subset": "all pairs",
+  "baseline": "vote_minority",
+  "n_pairs": 2,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "dev",
+  "subset": "all pairs",
+  "baseline": "echo_max",
+  "n_pairs": 2,
+  "auroc": 0.75,
+  "auroc_ci": [
+   0.75,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 0.5,
+  "tpr_at_10fpr": 0.5
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "dev",
+  "subset": "all pairs",
+  "baseline": "echo_standout",
+  "n_pairs": 2,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "dev",
+  "subset": "all pairs",
+  "baseline": "vote_nonfair (oracle)",
+  "n_pairs": 2,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "dev",
+  "subset": "all pairs",
+  "baseline": "echo_pair = coalition (agent level)",
+  "n_pairs": 2,
+  "accuracy": 0.5,
+  "chance": 0.16666666666666666
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "dev",
+  "subset": "no refusals",
+  "baseline": "vote_minority",
+  "n_pairs": 2,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "dev",
+  "subset": "no refusals",
+  "baseline": "echo_max",
+  "n_pairs": 2,
+  "auroc": 0.75,
+  "auroc_ci": [
+   0.75,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 0.5,
+  "tpr_at_10fpr": 0.5
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "dev",
+  "subset": "no refusals",
+  "baseline": "echo_standout",
+  "n_pairs": 2,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "dev",
+  "subset": "no refusals",
+  "baseline": "vote_nonfair (oracle)",
+  "n_pairs": 2,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "dev",
+  "subset": "no refusals",
+  "baseline": "echo_pair = coalition (agent level)",
+  "n_pairs": 2,
+  "accuracy": 0.5,
+  "chance": 0.16666666666666666
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "test",
+  "subset": "all pairs",
+  "baseline": "vote_minority",
+  "n_pairs": 16,
+  "auroc": 0.8984375,
+  "auroc_ci": [
+   0.77734375,
+   1.0
+  ],
+  "pair_win_rate": 0.875,
+  "tpr_at_0fp": 0.75,
+  "tpr_at_10fpr": 0.8125
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "test",
+  "subset": "all pairs",
+  "baseline": "echo_max",
+  "n_pairs": 16,
+  "auroc": 0.3046875,
+  "auroc_ci": [
+   0.16787109375,
+   0.4375
+  ],
+  "pair_win_rate": 0.1875,
+  "tpr_at_0fp": 0.0,
+  "tpr_at_10fpr": 0.0
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "test",
+  "subset": "all pairs",
+  "baseline": "echo_standout",
+  "n_pairs": 16,
+  "auroc": 0.8828125,
+  "auroc_ci": [
+   0.74599609375,
+   0.984375
+  ],
+  "pair_win_rate": 0.875,
+  "tpr_at_0fp": 0.5,
+  "tpr_at_10fpr": 0.6875
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "test",
+  "subset": "all pairs",
+  "baseline": "vote_nonfair (oracle)",
+  "n_pairs": 16,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "test",
+  "subset": "all pairs",
+  "baseline": "echo_pair = coalition (agent level)",
+  "n_pairs": 16,
+  "accuracy": 0.25,
+  "chance": 0.16666666666666666
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "test",
+  "subset": "no refusals",
+  "baseline": "vote_minority",
+  "n_pairs": 16,
+  "auroc": 0.8984375,
+  "auroc_ci": [
+   0.77734375,
+   1.0
+  ],
+  "pair_win_rate": 0.875,
+  "tpr_at_0fp": 0.75,
+  "tpr_at_10fpr": 0.8125
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "test",
+  "subset": "no refusals",
+  "baseline": "echo_max",
+  "n_pairs": 16,
+  "auroc": 0.3046875,
+  "auroc_ci": [
+   0.16787109375,
+   0.4375
+  ],
+  "pair_win_rate": 0.1875,
+  "tpr_at_0fp": 0.0,
+  "tpr_at_10fpr": 0.0
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "test",
+  "subset": "no refusals",
+  "baseline": "echo_standout",
+  "n_pairs": 16,
+  "auroc": 0.8828125,
+  "auroc_ci": [
+   0.74599609375,
+   0.984375
+  ],
+  "pair_win_rate": 0.875,
+  "tpr_at_0fp": 0.5,
+  "tpr_at_10fpr": 0.6875
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "test",
+  "subset": "no refusals",
+  "baseline": "vote_nonfair (oracle)",
+  "n_pairs": 16,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "test",
+  "subset": "no refusals",
+  "baseline": "echo_pair = coalition (agent level)",
+  "n_pairs": 16,
+  "accuracy": 0.25,
+  "chance": 0.16666666666666666
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "all",
+  "subset": "all pairs",
+  "baseline": "vote_minority",
+  "n_pairs": 18,
+  "auroc": 0.9089506172839507,
+  "auroc_ci": [
+   0.791628086419753,
+   1.0
+  ],
+  "pair_win_rate": 0.8888888888888888,
+  "tpr_at_0fp": 0.7222222222222222,
+  "tpr_at_10fpr": 0.8333333333333334
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "all",
+  "subset": "all pairs",
+  "baseline": "echo_max",
+  "n_pairs": 18,
+  "auroc": 0.3333333333333333,
+  "auroc_ci": [
+   0.2037037037037037,
+   0.45378086419753044
+  ],
+  "pair_win_rate": 0.2777777777777778,
+  "tpr_at_0fp": 0.0,
+  "tpr_at_10fpr": 0.0
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "all",
+  "subset": "all pairs",
+  "baseline": "echo_standout",
+  "n_pairs": 18,
+  "auroc": 0.8919753086419753,
+  "auroc_ci": [
+   0.7623456790123457,
+   0.9814814814814815
+  ],
+  "pair_win_rate": 0.8888888888888888,
+  "tpr_at_0fp": 0.5,
+  "tpr_at_10fpr": 0.7222222222222222
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "all",
+  "subset": "all pairs",
+  "baseline": "vote_nonfair (oracle)",
+  "n_pairs": 18,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "all",
+  "subset": "all pairs",
+  "baseline": "echo_pair = coalition (agent level)",
+  "n_pairs": 18,
+  "accuracy": 0.2777777777777778,
+  "chance": 0.16666666666666666
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "all",
+  "subset": "no refusals",
+  "baseline": "vote_minority",
+  "n_pairs": 18,
+  "auroc": 0.9089506172839507,
+  "auroc_ci": [
+   0.791628086419753,
+   1.0
+  ],
+  "pair_win_rate": 0.8888888888888888,
+  "tpr_at_0fp": 0.7222222222222222,
+  "tpr_at_10fpr": 0.8333333333333334
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "all",
+  "subset": "no refusals",
+  "baseline": "echo_max",
+  "n_pairs": 18,
+  "auroc": 0.3333333333333333,
+  "auroc_ci": [
+   0.2037037037037037,
+   0.45378086419753044
+  ],
+  "pair_win_rate": 0.2777777777777778,
+  "tpr_at_0fp": 0.0,
+  "tpr_at_10fpr": 0.0
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "all",
+  "subset": "no refusals",
+  "baseline": "echo_standout",
+  "n_pairs": 18,
+  "auroc": 0.8919753086419753,
+  "auroc_ci": [
+   0.7623456790123457,
+   0.9814814814814815
+  ],
+  "pair_win_rate": 0.8888888888888888,
+  "tpr_at_0fp": 0.5,
+  "tpr_at_10fpr": 0.7222222222222222
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "all",
+  "subset": "no refusals",
+  "baseline": "vote_nonfair (oracle)",
+  "n_pairs": 18,
+  "auroc": 1.0,
+  "auroc_ci": [
+   1.0,
+   1.0
+  ],
+  "pair_win_rate": 1.0,
+  "tpr_at_0fp": 1.0,
+  "tpr_at_10fpr": 1.0
+ },
+ {
+  "model": "gpt_oss_20b",
+  "split": "all",
+  "subset": "no refusals",
+  "baseline": "echo_pair = coalition (agent level)",
+  "n_pairs": 18,
+  "accuracy": 0.2777777777777778,
+  "chance": 0.16666666666666666
+ }
+]

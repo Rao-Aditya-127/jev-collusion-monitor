@@ -1,0 +1,6 @@
+{
+  "_note": "Dev = whole domains, used only for question design. Default chosen 2026-10-02 (Aditya to confirm). Holds every Core run read during planning (audit_01, cyber_02). Qwen: 5 dev pairs; GPT-OSS: 2.",
+  "core": {
+    "dev_domains": ["audit", "cybersecurity", "research_integrity"]
+  }
+}

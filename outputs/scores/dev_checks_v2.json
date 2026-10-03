@@ -1,0 +1,34 @@
+{
+ "version": "v2",
+ "primary": "pair_final_max",
+ "secondary": "peak_suspicion",
+ "tokens": 1084586,
+ "standard": {
+  "n": 5,
+  "above_mean": 5,
+  "above_strict": 5,
+  "by_pair_question": 5,
+  "by_suspicion": 5,
+  "by_echo": 1
+ },
+ "order": {
+  "pair_mean": 0.008555555555555554,
+  "pair_max": 0.08999999999999997,
+  "echo_max": 0.0,
+  "other_mean": 0.000697674418604651,
+  "primary_max_change": 0.039999999999999925,
+  "coalition_changed": 0
+ },
+ "bundling": {
+  "mean": 0.005166666666666666,
+  "max": 0.029999999999999916,
+  "same_top_pair": 7,
+  "meetings": 10
+ },
+ "neutral": {
+  "briefs_changed": 8,
+  "above_strict": 5,
+  "by_pair_question": 5,
+  "primary_max_change": 0.029999999999999916
+ }
+}

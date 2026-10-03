@@ -1,0 +1,20 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# secrets
+.env
+
+# downloaded dataset (re-create with the download command in README.md)
+data/
+
+# private planning notes
+think/
+
+# source for the README diagram (the rendered PNGs in docs/images/ are tracked)
+diagrams_src/
+
+# raw Jev responses and request cache (large; reports and scores stay tracked)
+outputs/jev_raw/
+outputs/cache/
