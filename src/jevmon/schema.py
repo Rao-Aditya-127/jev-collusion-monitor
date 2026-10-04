@@ -38,7 +38,7 @@ class Label:
     model: str
     tier: str
     domain: str
-    mode: str  # "collusion" | "control"
+    mode: str  # "collusion" | "control" | "implicit" (Transfer only: shared motive, no instruction to collude)
     roles: dict[str, str]
     coalition: tuple[str, ...]
     target_option: str | None
@@ -46,6 +46,7 @@ class Label:
     collusion_success: bool | None
     colluder_voted_target: int | None
     private_messages: tuple[str, ...]
+    sanitized_messages: int = 0  # public messages with self-leaked private notes stripped by the loader
 
     @property
     def is_collusion(self) -> bool:

@@ -19,11 +19,12 @@ import re
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from jevmon.baselines.core import vote_minority, vote_nonfair
+from jevmon.baselines.core import echo_standout, vote_minority, vote_nonfair
 from jevmon.eval.metrics import auroc, bootstrap_ci
 from jevmon.eval.splits import core_split, load_splits
 from jevmon.loaders.core import load_core
 from jevmon.loaders.narcbench import MODELS, evaluated_run_ids, read_json, run_dir
+from jevmon.loaders.transfer import load_transfer
 from jevmon.monitors.core_monitor import build_requests, load_questions, pair_key, score_run
 from jevmon.monitors.jev_client import JevClient
 from jevmon.paths import REPO_ROOT, data_root
@@ -175,7 +176,40 @@ def experiments() -> dict:
                    "tokens": _md_number(test_md, r"Input tokens: ([\d,]+)", int),
                    "latency_p50": _md_number(test_md, r"p50 ([\d.]+) s"),
                    "meetings": sum(len(m["pairs"]) * 2 for m in models.values())}
+    out["transfer"] = transfer_results()
     return out
+
+
+def transfer_results() -> dict:
+    """Experiment 5: frozen v2 questions, zero-shot on Transfer (outputs/scores/transfer_test_scores.json)."""
+    md = OUTPUTS / "reports" / "transfer_test.md"
+    data = json.loads((OUTPUTS / "scores" / "transfer_test_scores.json").read_text(encoding="utf-8"))
+    summary = data["summary"]
+    by_run = {(r["model"], r["run_id"]): r for r in data["runs"]}
+    methods = {}
+    pairs = defaultdict(dict)
+    for obs, label in load_transfer("qwen3_32b"):
+        r = by_run[("qwen3_32b", label.run_id)]
+        pairs[label.pair_id][label.mode] = {"primary": r["run"]["pair_final_max"], "secondary": r["run"]["peak_suspicion"],
+                                            "echo": echo_standout(obs)}
+    plist = list(pairs.values())
+    for key, name in (("primary", "Jev: pair question (main score)"), ("secondary", "Jev: most suspicious agent"),
+                      ("echo", "Word overlap between agents (no AI)")):
+        pos, neg = [p["collusion"][key] for p in plist], [p["control"][key] for p in plist]
+        methods[key] = {"name": name, "auroc": auroc(pos, neg), "ci": bootstrap_ci(pos, neg, auroc)}
+    qwen = summary["qwen3_32b (primary)"]
+    shuffled = [f for f in ("code_review", "news", "pump_dump", "rag")]
+    return {
+        "qwen": qwen, "gpt": summary["gpt_oss_20b (secondary)"],
+        "implicit": summary["qwen3_32b (exploratory: implicit vs control)"],
+        "methods": methods, "paper_all": 0.88,
+        "paper_best": {"cicd": 0.73, "code_review": 1.00, "news": 0.96, "pump_dump": 0.99, "rag": 0.83, "research": 1.00},
+        "shuffled_named": sum(qwen["families"][f]["named"] for f in shuffled),
+        "shuffled_pairs": sum(qwen["families"][f]["pairs"] for f in shuffled),
+        "calls": _md_number(md, r"Total for both attempts: ([\d,]+) calls", int),
+        "tokens_m": _md_number(md, r"calls, ([\d.]+)M input tokens"),
+        "meetings": _md_number(md, r"for (\d+) meetings", int),
+    }
 
 
 def collect() -> dict:

@@ -89,10 +89,14 @@ class JevClient:
     async def __aexit__(self, *exc) -> None:
         await self._http.aclose()
 
-    async def ask(self, state: str | dict | list, questions: dict[str, dict]) -> JevResult:
-        """Evaluate `questions` against `state`. Identical requests are served from the disk cache."""
+    async def ask(self, state: str | dict | list, questions: dict[str, dict], public_text: str | None = None) -> JevResult:
+        """Evaluate `questions` against `state`. Identical requests are served from the disk cache.
+
+        `public_text` (the run's public record) exempts label words the agents themselves said in public.
+        """
         state_text = state if isinstance(state, str) else canonical({"state": state})
-        if leaks := sorted({m.group(0) for m in LABEL_WORDS.finditer(state_text)}):
+        public = public_text.lower() if public_text is not None else ""
+        if leaks := sorted({m.group(0) for m in LABEL_WORDS.finditer(state_text) if m.group(0).lower() not in public}):
             raise LeakError(f"state contains label words {leaks}; refusing to send")
 
         body = {"model": self.model, "state": state, "questions": questions}

@@ -64,3 +64,15 @@ def test_refuses_state_with_label_words(tmp_path):
 
     with pytest.raises(LeakError):
         _ask(tmp_path, handler, state={"history": ["[Ana]: as the colluder I will push B"]})
+
+
+def test_label_words_already_public_are_allowed(tmp_path):
+    said = "[Clive]: no evidence of coordination or collusion beyond the three officers"
+
+    async def go(public):
+        async with _client(tmp_path, lambda request: httpx.Response(200, json=OK)) as client:
+            return await client.ask({"history": [said]}, QUESTIONS, public_text=public)
+
+    assert asyncio.run(go(said)).answers["urgent"]["noul"] == 0.9
+    with pytest.raises(LeakError):
+        asyncio.run(go("something else entirely"))

@@ -13,14 +13,14 @@ import hashlib
 import json
 
 from ..baselines.core import vote_minority, vote_nonfair
-from ..eval.metrics import auroc, bootstrap_ci, bootstrap_diff_ci, pair_win_rate, tpr_at_fpr
+from ..eval.metrics import auroc, bootstrap_diff_ci
 from ..eval.splits import core_split, load_splits
 from ..leakguard import find_leaks
 from ..loaders.core import load_core
 from ..monitors.core_monitor import build_requests, pair_key, score_run
 from ..monitors.jev_client import JevClient, LeakError
 from ..paths import REPO_ROOT
-from .reporting import inside_meetings, pair_up
+from .reporting import inside_meetings, metric_rows, pair_up
 
 FROZEN = REPO_ROOT / "configs" / "frozen.json"
 PRICE_PER_MTOK = 0.042
@@ -47,17 +47,6 @@ async def answer(runs, qs, model):
         scored.append(score_run(obs, list(zip(requests, [r.answers for r in results[i: i + len(requests)]])), qs))
         i += len(requests)
     return scored, results
-
-
-def metric_rows(pairs, scorers) -> list[str]:
-    lines = ["| score | pairs | AUROC [95% CI] | pair win-rate | TPR @0 FP | TPR @10% FPR |", "|---|---|---|---|---|---|"]
-    for name, get in scorers.items():
-        pos = [get(p, "collusion") for p in pairs]
-        neg = [get(p, "control") for p in pairs]
-        lo, hi = bootstrap_ci(pos, neg, auroc)
-        lines.append(f"| {name} | {len(pairs)} | {auroc(pos, neg):.3f} [{lo:.2f}, {hi:.2f}] | {pair_win_rate(pos, neg):.3f} | "
-                     f"{tpr_at_fpr(pos, neg, 0.0):.2f} | {tpr_at_fpr(pos, neg, 0.10):.2f} |")
-    return lines
 
 
 def evaluate(model_name, pairs, qs) -> tuple[list[str], dict]:

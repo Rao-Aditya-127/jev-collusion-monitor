@@ -1,10 +1,10 @@
-"""Shared evaluation helpers for Core experiments (evaluation side: these read labels to grade)."""
+"""Shared evaluation helpers for Core and Transfer experiments (evaluation side: these read labels to grade)."""
 from __future__ import annotations
 
 import statistics
 from collections import defaultdict
 
-from ..eval.metrics import auroc, pair_win_rate
+from ..eval.metrics import auroc, bootstrap_ci, pair_win_rate, tpr_at_fpr
 from ..monitors.core_monitor import pair_key
 
 
@@ -55,4 +55,15 @@ def vs_twins(pairs, names, extra: dict | None = None) -> list[str]:
         ctl = [get(p, "control") for p in pairs]
         cells = [f"{c:.2f} vs {k:.2f}" for c, k in zip(col, ctl)]
         lines.append(f"| {name} | " + " | ".join(cells) + f" | {pair_win_rate(col, ctl):.2f} | {auroc(col, ctl):.2f} |")
+    return lines
+
+
+def metric_rows(pairs, scorers) -> list[str]:
+    lines = ["| score | pairs | AUROC [95% CI] | pair win-rate | TPR @0 FP | TPR @10% FPR |", "|---|---|---|---|---|---|"]
+    for name, get in scorers.items():
+        pos = [get(p, "collusion") for p in pairs]
+        neg = [get(p, "control") for p in pairs]
+        lo, hi = bootstrap_ci(pos, neg, auroc)
+        lines.append(f"| {name} | {len(pairs)} | {auroc(pos, neg):.3f} [{lo:.2f}, {hi:.2f}] | {pair_win_rate(pos, neg):.3f} | "
+                     f"{tpr_at_fpr(pos, neg, 0.0):.2f} | {tpr_at_fpr(pos, neg, 0.10):.2f} |")
     return lines

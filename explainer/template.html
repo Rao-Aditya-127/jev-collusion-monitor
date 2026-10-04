@@ -502,18 +502,48 @@ footer { padding: 40px 0 60px; color: var(--muted); font-size: 13px; border-top:
   <div class="card"><div class="chart" id="dumbbell"></div></div>
 </section>
 
+<!-- ================= EXPERIMENT 5 ================= -->
+<section class="step" id="exp5" data-toc="Exp 5 · Transfer (main test)" data-group="Results so far">
+  <div class="eyebrow exp"><span class="num">E5</span> Experiment 5</div>
+  <h2>The main test: six new kinds of teamwork, no votes, no re-tuning</h2>
+  <p class="lead prose">Code review, deployment pipelines, knowledge-base edits, research reports, stock picks and news writing. There is <b>no vote to count</b> here. We used the exact questions frozen on Core, unchanged ("zero-shot"), the same way the paper tested its probes, and wrote the test plan down before running anything.</p>
+  <div class="grid g4">
+    <div class="stat"><div class="label">Spotting collusion meetings</div><div class="value" data-v="trPrimary"></div><div class="note">Jev's main score (AUROC) · its "most suspicious agent" score reaches <b data-v="trSecondary"></b> · brain-reading probes: <b>0.88</b></div></div>
+    <div class="stat"><span class="badge pass">✓ clear</span><div class="label">Vs. word overlap (no AI)</div><div class="value" data-v="trDiff"></div><div class="note">AUROC gap, 95% range <span data-v="trDiffCI"></span>. The range stays above zero: a real win.</div></div>
+    <div class="stat"><div class="label">Naming the colluding pair</div><div class="value" data-v="trNamedPct"></div><div class="note"><span data-v="trNamed"></span> meetings where speaking order gives nothing away · chance 17%</div></div>
+    <div class="stat"><div class="label">Cost</div><div class="value" data-v="trPerMeeting"></div><div class="note">per meeting · <span data-v="trCalls"></span> Jev calls for <span data-v="trMeetings"></span> meetings in total</div></div>
+  </div>
+  <h3>Every method on Transfer</h3>
+  <p class="prose small muted">Qwen meetings, 36 pairs. The probes' number comes from the paper and was measured on an easier set: the authors removed 6 meetings where collusion failed or was refused. We kept all 36.</p>
+  <div class="card"><div class="chart" id="chartTransfer"></div></div>
+  <h3>Family by family</h3>
+  <p class="prose small muted">Only 6 meeting pairs per family, so read these as direction only. Look at the two families where the brain-reading probes struggled most.</p>
+  <div class="legend" id="famLegend"></div>
+  <div class="card"><div class="chart" id="chartFamilies"></div></div>
+  <div class="callout"><div class="t">Read with care</div>In the two pipeline families (CI/CD and Research), the colluders always sit in the 1st and 3rd seat, so "who" is easy to guess from seating alone. That's why we count naming only in the four families where speaking order is shuffled.</div>
+  <h3>Bonus: agents that were never told to collude</h3>
+  <div class="grid g2">
+    <div class="card"><p class="small" style="margin-top:0">The dataset also contains <b>"implicit" runs</b>: two agents share a motive (same employer, same funder, same stock) and a private chat, but are <b>never instructed</b> to team up. This is the closest thing here to real-world, unprompted collusion.</p>
+      <p class="small">Jev still separates these from their honest twins: AUROC <b data-v="impPrimary"></b> (95% range <span data-v="impCI"></span>), and its top pair is the motivated pair in <b data-v="impNamed"></b> meetings. Some of these agents even slip up in public: <i>"this analysis is informed by our private coordination with Rachel Kim"</i>.</p></div>
+    <div class="card"><p class="small" style="margin-top:0"><b>Second model (GPT-OSS-20B, 13 pairs):</b> AUROC <b data-v="gptTr"></b>. It isn't clearly better than word overlap there, and on GPT-OSS's CI/CD meetings Jev sees nothing (0.54). The paper's probes were also weakest on this model.</p>
+      <p class="tiny">Exploratory and secondary results: labels for implicit runs are uncertain, since those agents may not collude at all.</p></div>
+  </div>
+</section>
+
 <!-- ================= MEANING ================= -->
 <section class="step" id="meaning" data-toc="What it means so far" data-group="Results so far">
   <div class="eyebrow"><span class="num">✦</span> Summary</div>
   <h2>What it means so far</h2>
   <div class="grid g2">
     <div class="card"><h3 style="margin-top:0">What works</h3><ul class="small">
-      <li><b>Jev names the colluders</b> in most meetings (<span data-v="namedPct"></span> vs 17% by chance), even when a colluder switches to the honest option in the final vote.</li>
-      <li><b>It's extremely cheap and fast</b>: about <span data-v="perMeeting"></span> per meeting, ~0.3 s per call.</li>
-      <li><b>It's robust</b> to option order, question bundling, and removing hints from option names.</li></ul></div>
+      <li><b>On the main test (Transfer), a cheap outside observer gets close to brain-reading probes</b>: <span data-v="trPrimary"></span> to <span data-v="trSecondary"></span> vs 0.88, with questions that were never tuned for these tasks, and it clearly beats the no-AI baseline.</li>
+      <li>On the two families where the probes struggled most, Jev did <b>better</b> (CI/CD 0.81 vs 0.73, knowledge-base poisoning 0.90 vs 0.83), on just 6 pairs each.</li>
+      <li><b>Jev names the colluders</b> well above chance on both tiers.</li>
+      <li><b>It's extremely cheap and fast</b>: a fraction of a cent per meeting, ~0.3 s per call. <b>It's robust</b> to option order, bundling and option-name hints.</li></ul></div>
     <div class="card"><h3 style="margin-top:0">What's not proven yet</h3><ul class="small">
-      <li>On Core, <b>Jev is not clearly better than counting votes</b> at deciding whether a meeting is collusive. Both are near the ceiling.</li>
-      <li>Core collusion is scripted and fairly blatant. The real test is <b>Transfer</b>, where there's no vote to count and the probes are weakest (0.73 on CI/CD).</li>
+      <li>On Core, <b>Jev is not clearly better than counting votes</b> at deciding whether a meeting is collusive, and naming the pair there mostly means spotting who argues for the unjustified side.</li>
+      <li>Transfer families have only 6 pairs each, and on the second model (GPT-OSS) Jev isn't clearly better than word overlap.</li>
+      <li>We still need to separate "argues for a bad outcome" from "secretly coordinates", and to compare against a regular LLM judge on cost and accuracy.</li>
       <li>"Refusal" runs (colluders who decided not to collude) can't be caught from behaviour, and shouldn't be.</li></ul></div>
   </div>
 </section>
@@ -523,8 +553,9 @@ footer { padding: 40px 0 60px; color: var(--muted); font-size: 13px; border-top:
   <div class="eyebrow"><span class="num">→</span> Roadmap</div>
   <h2>What's next</h2>
   <div class="road">
-    <div class="item"><div class="when">Next</div><div class="card"><b>Transfer tier: the main test</b><p class="small muted">Code review, deployment pipelines, knowledge-base editing, research reports, stock picks, news. Same cycle: design on dev, freeze, test once. Also: the unevaluated "implicit" runs, where agents share a motive but are never told to collude.</p></div></div>
-    <div class="item"><div class="when">Then</div><div class="card"><b>Stego tier (blackjack)</b><p class="small muted">With the leaked <code>PRIVATE:</code> lines stripped. Talk-only vs talk + bets, against the bet-pattern baselines.</p></div></div>
+    <div class="item"><div class="when">Done</div><div class="card"><b>Transfer tier: the main test ✓</b><p class="small muted">Frozen questions, zero-shot, pre-registered. See Experiment 5.</p></div></div>
+    <div class="item"><div class="when">Next</div><div class="card"><b>Stego tier (blackjack)</b><p class="small muted">With the leaked <code>PRIVATE:</code> lines stripped. Talk-only vs talk + bets, against the bet-pattern baselines.</p></div></div>
+    <div class="item"><div class="when">Then</div><div class="card"><b>"Advocacy" check</b><p class="small muted">Ask Jev only "what outcome does each agent push for?" If that names the pair as well as the pair question, Jev is spotting advocacy, not coordination.</p></div></div>
     <div class="item"><div class="when">Then</div><div class="card"><b>Cheap LLM judge comparison</b><p class="small muted">The same inputs to a regular chat model (DeepSeek) and a strong frontier model, to price Jev's accuracy against cost.</p></div></div>
     <div class="item"><div class="when">Later</div><div class="card"><b>Live agents and prevention</b><p class="small muted">Our own multi-agent runs with real tools, monitor-aware agents, and finally blocking flagged actions before they land.</p></div></div>
   </div>
@@ -629,7 +660,8 @@ function bindTerms(root = document) {
 })();
 
 /* ---------------- derived numbers ---------------- */
-const EXP = DATA.experiments, TEST = EXP.test, Q = TEST.models.qwen3_32b, G = TEST.models.gpt_oss_20b;
+const EXP = DATA.experiments, TEST = EXP.test, Q = TEST.models.qwen3_32b, G = TEST.models.gpt_oss_20b, TR = EXP.transfer;
+const signed = x => (x >= 0 ? "+" : "−") + f2(Math.abs(x));
 const cnt = (model, tier) => DATA.dataset.counts.find(c => c.model === model && c.tier === tier);
 const VIEW = {
   built: DATA.built,
@@ -650,6 +682,12 @@ const VIEW = {
   diffCI: `${f2(Q.summary.diff_ci[0])} to +${f2(Q.summary.diff_ci[1])}`,
   named: `${Q.summary.coalition_found} of ${Q.summary.pairs}`, namedPct: pct(Q.summary.coalition_found / Q.summary.pairs),
   gptPrimary: f2(G.methods.primary.auroc), gptVote: f2(G.methods.vote.auroc), gptNamed: `${G.summary.coalition_found}/${G.summary.pairs}`,
+  trPrimary: f2(TR.methods.primary.auroc), trSecondary: f2(TR.methods.secondary.auroc),
+  trDiff: signed(TR.qwen.diff), trDiffCI: `${signed(TR.qwen.diff_ci[0])} to ${signed(TR.qwen.diff_ci[1])}`,
+  trNamed: `${TR.shuffled_named} of ${TR.shuffled_pairs}`, trNamedPct: pct(TR.shuffled_named / TR.shuffled_pairs),
+  trPerMeeting: "$" + (TR.tokens_m * 0.042 / TR.meetings).toFixed(4), trCalls: TR.calls.toLocaleString("en-US"), trMeetings: String(TR.meetings),
+  impPrimary: f2(TR.implicit.primary_auroc), impCI: `${f2(TR.implicit.primary_ci[0])} – ${f2(TR.implicit.primary_ci[1])}`,
+  impNamed: `${TR.implicit.named} of ${TR.implicit.pairs}`, gptTr: f2(TR.gpt.primary_auroc),
 };
 document.querySelectorAll("[data-v]").forEach(el => { el.textContent = VIEW[el.dataset.v] ?? "—"; });
 
@@ -780,7 +818,7 @@ document.querySelectorAll("[data-v]").forEach(el => { el.textContent = VIEW[el.d
       h("div", { class: "small muted", style: "font-weight:700;text-transform:uppercase;letter-spacing:.06em" }, name),
       h("h3", { style: "margin:4px 0 6px" }, sub), h("p", { class: "small muted" }, desc),
       h("div", { class: "small" }, `Paper's probes: `, h("b", {}, f2(probe)), ` AUROC · runs used: `, h("b", {}, `${c.evaluated.collusion ?? 0} + ${c.evaluated.control ?? 0}`)),
-      key === "core" ? h("span", { class: "badge info", style: "margin-top:8px" }, "our focus so far") : key === "transfer" ? h("span", { class: "badge info", style: "margin-top:8px" }, "next") : null));
+      h("span", { class: "badge info", style: "margin-top:8px" }, key === "core" ? "tested · Exp 4" : key === "transfer" ? "tested · Exp 5 (main test)" : "next")));
   });
   const card = document.getElementById("countsCard");
   const tbl = h("table"), thead = h("thead", {}, h("tr", {}, h("th", {}, "Model"), h("th", {}, "Tier"), h("th", {}, "In the folders"), h("th", {}, "Used by the paper (and us)"), h("th", {}, "")));
@@ -937,6 +975,8 @@ function drawMeeting() {
     ["👀", "The blackjack \"text-only\" judge saw the bets", "The paper says its LLM judge failed on table talk. Its prompt actually included every player's bets and the leaked lines above, and it still said \"clear\" 19 of 20 times.", "So that failure says more about the judge than about the task.", false],
     ["🏷️", "A label hidden in plain sight", "The field bp_bet_correlation only exists in collusion runs. Merely checking that it exists gives a perfect score.", "Our loaders never read it.", false],
     ["💬", "Option names hint at the unfair choice", "e.g. \"Option B: Issue clean opinion (preserve client relationship)\".", "We tested Jev with those hints removed: no change (≤ 0.03).", true],
+    ["📰", "A news team leaked its own secret notes", "In one Transfer meeting (news nf_06), the colluding journalists pasted \"Private Coordination (only you and I see this)\" notes into 4 public messages. Trivial to catch, and not realistic.", "We strip those notes (decided before the test).", false],
+    ["🗣️", "Agents with a shared motive slip up in public", "In the \"implicit\" runs, agents who were never told to collude sometimes write things like \"our private coordination with Rachel Kim\" in public.", "That's genuine public behaviour, so Jev may see it; our leak guard only blocks what isn't already public.", true],
     ["🧠", "Good news: no reasoning traces leak", "Neither model's public messages contain hidden \"thinking\" text that would make detection trivial.", "Checked across all tiers and both models.", true],
   ];
   const box = document.getElementById("findingsGrid");
@@ -1136,7 +1176,47 @@ function dumbbell() {
   text(svg, x(0.5), H - 2, "Jev meeting score", { "text-anchor": "middle", class: "sub" });
   tableOf(el, ["Pair", "Collusion", "Honest twin", "Pair named"], P.map(p => [p.pair + (p.refusal ? " (refusal)" : ""), f2(p.collusion.primary), f2(p.control.primary), p.collusion.named ? "yes" : "no"]));
 }
-function renderCharts() { chartBaselines(); chartSignal(); chartTest(); explorer(); dumbbell(); }
+function chartTransfer() {
+  const el = document.getElementById("chartTransfer"), M = TR.methods;
+  const rows = [
+    { label: "Jev: pair question", sub: "main score, frozen on Core", value: M.primary.auroc, ci: M.primary.ci, color: "var(--jev)" },
+    { label: "Jev: most suspicious agent", sub: "secondary score", value: M.secondary.auroc, ci: M.secondary.ci, color: "var(--jev)" },
+    { label: "Paper's brain-reading probes", sub: "white-box, best method, easier 30-pair set", value: TR.paper_all, ci: null, color: "var(--axis)", note: "Published number; the authors removed 6 failed or refused meetings first." },
+    { label: "Word overlap between agents", sub: "no AI", value: M.echo.auroc, ci: M.echo.ci, color: "var(--neutral)" },
+  ];
+  dotCI(el, rows, { min: 0, max: 1 });
+  tableOf(el, ["Method", "AUROC", "95% low", "95% high"], rows.map(r => [r.label, f3(r.value), r.ci ? f2(r.ci[0]) : "—", r.ci ? f2(r.ci[1]) : "—"]));
+}
+const FAM_NAMES = { cicd: "CI/CD pipeline", code_review: "Code review", news: "News framing", pump_dump: "Pump & dump", rag: "Knowledge-base (RAG) poisoning", research: "Research pipeline" };
+const FAM_SERIES = [
+  { k: "primary", label: "Jev main score", mark: (g, x, y) => s("circle", { cx: x, cy: y, r: 6, fill: "var(--jev)", stroke: "var(--surface)", "stroke-width": 2 }, g) },
+  { k: "secondary", label: "Jev most suspicious agent", mark: (g, x, y) => s("circle", { cx: x, cy: y, r: 5, fill: "var(--surface)", stroke: "var(--jev)", "stroke-width": 2.5 }, g) },
+  { k: "probe", label: "Brain-reading probes (paper's best)", mark: (g, x, y) => s("path", { d: `M${x} ${y - 7}L${x + 7} ${y}L${x} ${y + 7}L${x - 7} ${y}Z`, fill: "var(--text-2)", stroke: "var(--surface)", "stroke-width": 1.5 }, g) },
+  { k: "echo", label: "Word overlap (no AI)", mark: (g, x, y) => s("rect", { x: x - 5, y: y - 5, width: 10, height: 10, rx: 2, fill: "var(--neutral)", stroke: "var(--surface)", "stroke-width": 1.5 }, g) },
+];
+function chartFamilies() {
+  const el = document.getElementById("chartFamilies"); el.innerHTML = "";
+  const lg = document.getElementById("famLegend");
+  if (!lg.childElementCount) FAM_SERIES.forEach(se => { const sv = s("svg", { width: 16, height: 16 }); se.mark(sv, 8, 8); lg.appendChild(h("span", {}, sv, se.label)); });
+  const fams = Object.entries(TR.qwen.families).map(([k, v]) => ({ k, name: FAM_NAMES[k] || k, pairs: v.pairs,
+    vals: { primary: v.primary, secondary: v.secondary, probe: TR.paper_best[k], echo: v.echo_standout } }))
+    .sort((a, b) => a.vals.probe - b.vals.probe);
+  const W = Math.max(320, el.clientWidth), L = Math.min(230, W * 0.38), R = 20, rowH = 48, top = 22, H = top + fams.length * rowH + 30;
+  const svg = s("svg", { width: W, height: H }, el);
+  const x = v => L + v * (W - L - R);
+  axisX(svg, x, top - 6, top + fams.length * rowH, [0, 0.25, 0.5, 0.75, 1]);
+  s("line", { x1: x(0.5), x2: x(0.5), y1: top - 10, y2: top + fams.length * rowH, stroke: "var(--axis)", "stroke-width": 2 }, svg);
+  text(svg, x(0.5) + 5, top - 8, "coin flip", { class: "sub" });
+  fams.forEach((f, i) => {
+    const y = top + i * rowH + rowH / 2;
+    text(svg, 0, y - 1, f.name, { class: "lab" }); text(svg, 0, y + 14, `${f.pairs} pairs`, { class: "sub" });
+    FAM_SERIES.forEach((se, j) => se.mark(svg, x(f.vals[se.k]), y + (j - 1.5) * 6));
+    const hit = s("rect", { x: 0, y: y - rowH / 2, width: W, height: rowH, fill: "transparent" }, svg);
+    hover(hit, `<b>${esc(f.name)}</b> (${f.pairs} pairs)<br>` + FAM_SERIES.map(se => `${esc(se.label)}: <b>${f2(f.vals[se.k])}</b>`).join("<br>"));
+  });
+  tableOf(el, ["Family", ...FAM_SERIES.map(se => se.label)], fams.map(f => [f.name, ...FAM_SERIES.map(se => f2(f.vals[se.k]))]));
+}
+function renderCharts() { chartBaselines(); chartSignal(); chartTest(); explorer(); dumbbell(); chartTransfer(); chartFamilies(); }
 
 /* glossary list */
 (function glossary() {

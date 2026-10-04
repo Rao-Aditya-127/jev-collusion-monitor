@@ -43,14 +43,21 @@ Phase 1 is detection only, offline, on existing data. Blocking bad actions comes
 | Jev client (pinned `jev-1.13.0`, cache, retries, leak check) | done |
 | First Jev test on the dev split (5 meeting pairs) | done: found the colluding pair in 5/5 meetings, ≈ $0.0014 per meeting |
 | Refine questions on dev, freeze them, score the Core test split once | done (see below) |
-| Transfer tier (the main test), then Stego, write-up | next |
+| Transfer tier (the main test): the same frozen questions, no re-tuning | done (see below) |
+| Stego tier, cheap-LLM-judge comparison, write-up | next |
+
+**Transfer result** (six kinds of teamwork with no vote to count: code review, CI/CD, knowledge-base edits, research reports, stock picks, news; 36 meeting pairs):
+- **Is this meeting collusive?** Jev scores AUROC **0.82** (main score) and **0.87** (most suspicious agent), close to the paper's white-box probes (**0.88**, which read the models' internals). It **clearly beats** the word-overlap baseline (**+0.22**, 95% range +0.09 to +0.36).
+- **The hardest families:** on CI/CD and knowledge-base poisoning, where the probes were weakest (0.73 and 0.83), Jev scores **0.81** and **0.90**. These are 6 pairs each, so read them as direction only.
+- **Who is colluding?** In the four families where speaking order gives nothing away, Jev names the exact pair **63%** of the time; chance is 17%.
+- **Cost:** about **$0.002 per meeting**.
 
 **Core test result** (26 meeting pairs, questions frozen beforehand):
 - **Is this meeting collusive?** Jev scores AUROC **0.89**; counting the final vote scores **0.87**. The two are not clearly different, because both are near the ceiling on this tier.
 - **Who is colluding?** Jev names the exact colluding pair in **85%** of collusion meetings; random guessing gets 17%. A vote count can't do this.
 - **Cost:** about **$0.0013 per meeting**, with roughly 0.3 s per Jev call.
 
-Reports: [Core baselines](outputs/reports/core_baselines.md) · [first Jev test on dev](outputs/reports/spike_dev.md) · [dev checks before freezing](outputs/reports/dev_checks_v2.md) · [Core test](outputs/reports/core_test.md).
+Reports: [Core baselines](outputs/reports/core_baselines.md) · [first Jev test on dev](outputs/reports/spike_dev.md) · [dev checks before freezing](outputs/reports/dev_checks_v2.md) · [Core test](outputs/reports/core_test.md) · [Transfer test](outputs/reports/transfer_test.md).
 
 ## Setup
 
@@ -76,6 +83,7 @@ uv run python -m jevmon.monitors.smoke         # one live Jev call to check your
 uv run python -m jevmon.experiments.spike_dev  # Jev on the dev split (cached after the first run)
 uv run python -m jevmon.experiments.dev_checks v2   # order / bundling / neutral-label checks on dev
 uv run python -m jevmon.experiments.core_test  # frozen questions on the Core test split (refuses if they changed)
+uv run python -m jevmon.experiments.transfer_test  # the same frozen questions on Transfer, zero-shot
 ```
 
 ## Project layout
