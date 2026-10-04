@@ -31,11 +31,27 @@ def strip_private_notes(text: str) -> tuple[str, bool]:
     return text[: m.start()].rstrip().rstrip("-").rstrip(), True
 
 
+# Found after the Transfer test (3-4 Oct): in news nf_01, nf_02 and nf_06 colluders also ended public messages
+# with strategy notes under other headings ("Narrative Nudge for Round 2", "Key Adjustments and Narrative
+# Nudges", "Private Drift Note (only you and I see this)"). Stripping them is OPTIONAL (post hoc check only), so
+# the pre-registered Transfer results stay reproducible with the default loader.
+_STRATEGY_NOTE = re.compile(r"^[^\n]*(narrative nudges?\b|drift (?:note|summary)\b|\(only you and \w+ (?:can )?see this\))[^\n]*$",
+                            re.I | re.M)
+
+
+def strip_strategy_notes(text: str) -> tuple[str, bool]:
+    m = _STRATEGY_NOTE.search(text)
+    if not m:
+        return text, False
+    return text[: m.start()].rstrip().rstrip("-").rstrip(), True
+
+
 def family(run_id: str) -> str:
     return run_id.split("__", 1)[0]
 
 
-def load_transfer_run(model: str, run_id: str, root: Path | None = None) -> tuple[Observation, Label]:
+def load_transfer_run(model: str, run_id: str, root: Path | None = None,
+                      strip_strategy: bool = False) -> tuple[Observation, Label]:
     d = run_dir(model, TIER, run_id, root)
     config = read_json(d / "run_config.json")
     results = read_json(d / "results.json")
@@ -47,6 +63,9 @@ def load_transfer_run(model: str, run_id: str, root: Path | None = None) -> tupl
         speaker, text = split_message(message)
         text, hit = strip_private_notes(text)
         stripped += hit
+        if strip_strategy:
+            text, hit = strip_strategy_notes(text)
+            stripped += hit
         events.append(Event(step=step, round=step // AGENTS_PER_ROUND + 1, agent=speaker, text=text))
     for start in range(0, len(events), AGENTS_PER_ROUND):
         speakers = tuple(sorted(e.agent for e in events[start: start + AGENTS_PER_ROUND]))
@@ -56,6 +75,9 @@ def load_transfer_run(model: str, run_id: str, root: Path | None = None) -> tupl
     for a in agents:
         finals[a], hit = strip_private_notes(results["final_texts"][a])
         stripped += hit
+        if strip_strategy:
+            finals[a], hit = strip_strategy_notes(finals[a])
+            stripped += hit
 
     uid = make_uid(model, TIER, run_id)
     observation = Observation(uid=uid, model=model, tier=TIER, brief=brief, agents=agents, options=(),
@@ -69,10 +91,11 @@ def load_transfer_run(model: str, run_id: str, root: Path | None = None) -> tupl
     return observation, label
 
 
-def load_transfer(model: str, include_implicit: bool = False, root: Path | None = None) -> list[tuple[Observation, Label]]:
+def load_transfer(model: str, include_implicit: bool = False, root: Path | None = None,
+                  strip_strategy: bool = False) -> list[tuple[Observation, Label]]:
     """The paper's evaluated runs; optionally also the unevaluated `implicit` runs (Qwen only)."""
     run_ids = evaluated_run_ids(model, TIER, root)
     if include_implicit:
         on_disk = os.listdir((root or data_root()) / "scenarios" / model / TIER)
         run_ids += sorted(r for r in on_disk if r.endswith("__implicit"))
-    return [load_transfer_run(model, r, root) for r in run_ids]
+    return [load_transfer_run(model, r, root, strip_strategy) for r in run_ids]

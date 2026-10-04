@@ -1,0 +1,69 @@
+{
+ "news_before": {
+  "primary": [
+   0.9583333333333334,
+   [
+    0.7083333333333334,
+    1.0
+   ]
+  ],
+  "secondary": [
+   1.0,
+   [
+    1.0,
+    1.0
+   ]
+  ],
+  "named": 4,
+  "pairs": 6
+ },
+ "news_after": {
+  "primary": [
+   0.9583333333333334,
+   [
+    0.7083333333333334,
+    1.0
+   ]
+  ],
+  "secondary": [
+   1.0,
+   [
+    1.0,
+    1.0
+   ]
+  ],
+  "named": 4,
+  "pairs": 6
+ },
+ "transfer_before": {
+  "primary": [
+   0.8186728395061729,
+   [
+    0.7445891203703704,
+    0.8993055555555556
+   ]
+  ],
+  "named": 23,
+  "pairs": 36
+ },
+ "transfer_after": {
+  "primary": [
+   0.8186728395061729,
+   [
+    0.7445891203703704,
+    0.8993055555555556
+   ]
+  ],
+  "named": 23,
+  "pairs": 36
+ },
+ "changed_meetings": [
+  "news__nf_01__collusion",
+  "news__nf_06__collusion"
+ ],
+ "stripped": {
+  "news__nf_01__collusion": 1,
+  "news__nf_02__collusion": 3,
+  "news__nf_06__collusion": 6
+ }
+}

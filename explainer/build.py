@@ -177,6 +177,8 @@ def experiments() -> dict:
                    "latency_p50": _md_number(test_md, r"p50 ([\d.]+) s"),
                    "meetings": sum(len(m["pairs"]) * 2 for m in models.values())}
     out["transfer"] = transfer_results()
+    out["advocacy"] = json.loads((OUTPUTS / "scores" / "advocacy_check.json").read_text(encoding="utf-8"))
+    out["news_check"] = json.loads((OUTPUTS / "scores" / "news_notes_check.json").read_text(encoding="utf-8"))
     return out
 
 

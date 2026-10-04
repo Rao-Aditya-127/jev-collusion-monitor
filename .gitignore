@@ -15,6 +15,9 @@ think/
 # source for the README diagram (the rendered PNGs in docs/images/ are tracked)
 diagrams_src/
 
+# local dataset explorer page (rebuild: uv run python dataset_explorer/build.py)
+dataset_explorer/
+
 # raw Jev responses and request cache (large; reports and scores stay tracked)
 outputs/jev_raw/
 outputs/cache/

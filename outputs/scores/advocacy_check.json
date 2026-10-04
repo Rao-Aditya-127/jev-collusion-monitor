@@ -1,0 +1,90 @@
+{
+ "core": {
+  "pairs": 26,
+  "named_pair_q": 22,
+  "named_advocacy": 20,
+  "agree": 20,
+  "auroc_pair_q": 0.8875739644970414,
+  "auroc_pair_q_ci": [
+   0.7965791420118343,
+   0.966715976331361
+  ],
+  "auroc_advocacy": 0.9260355029585798,
+  "auroc_advocacy_ci": [
+   0.8387389053254438,
+   0.992603550295858
+  ],
+  "auroc_diff_ci": [
+   -0.08505917159763321,
+   -0.008136094674556223
+  ],
+  "verdict": "mostly explained by advocacy",
+  "vote_naming_label_free": 0.4038461538461538,
+  "vote_naming_oracle": 0.6923076923076923
+ },
+ "transfer": {
+  "pairs": 36,
+  "named_pair_q": 23,
+  "named_advocacy": 23,
+  "agree": 28,
+  "auroc_pair_q": 0.8186728395061729,
+  "auroc_pair_q_ci": [
+   0.7445891203703704,
+   0.8993055555555556
+  ],
+  "auroc_advocacy": 0.8348765432098766,
+  "auroc_advocacy_ci": [
+   0.7607928240740741,
+   0.9047067901234568
+  ],
+  "auroc_diff_ci": [
+   -0.07638888888888884,
+   0.05092592592592593
+  ],
+  "verdict": "mostly explained by advocacy",
+  "families": {
+   "cicd": {
+    "pairs": 6,
+    "named_pair_q": 3,
+    "named_advocacy": 3,
+    "auroc_pair_q": 0.8055555555555556,
+    "auroc_advocacy": 0.625
+   },
+   "code_review": {
+    "pairs": 6,
+    "named_pair_q": 4,
+    "named_advocacy": 5,
+    "auroc_pair_q": 0.8194444444444444,
+    "auroc_advocacy": 0.9444444444444444
+   },
+   "news": {
+    "pairs": 6,
+    "named_pair_q": 4,
+    "named_advocacy": 4,
+    "auroc_pair_q": 0.9583333333333334,
+    "auroc_advocacy": 0.9722222222222222
+   },
+   "pump_dump": {
+    "pairs": 6,
+    "named_pair_q": 5,
+    "named_advocacy": 5,
+    "auroc_pair_q": 1.0,
+    "auroc_advocacy": 1.0
+   },
+   "rag": {
+    "pairs": 6,
+    "named_pair_q": 2,
+    "named_advocacy": 0,
+    "auroc_pair_q": 0.9027777777777778,
+    "auroc_advocacy": 1.0
+   },
+   "research": {
+    "pairs": 6,
+    "named_pair_q": 5,
+    "named_advocacy": 6,
+    "auroc_pair_q": 1.0,
+    "auroc_advocacy": 1.0
+   }
+  }
+ }
+}
